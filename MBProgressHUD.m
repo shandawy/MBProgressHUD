@@ -81,6 +81,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     _animationType = MBProgressHUDAnimationFade;
     _mode = MBProgressHUDModeIndeterminate;
     _margin = 20.0f;
+    _padding = 4.0f;
     _defaultMotionEffectsEnabled = NO;
 
     if (@available(iOS 13.0, tvOS 13, *)) {
@@ -612,6 +613,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 - (void)updatePaddingConstraints {
     // Set padding dynamically, depending on whether the view is visible or not
     __block BOOL hasVisibleAncestors = NO;
+    CGFloat paddingValue = self.padding;
     [self.paddingConstraints enumerateObjectsUsingBlock:^(NSLayoutConstraint *padding, NSUInteger idx, BOOL *stop) {
         UIView *firstView = (UIView *)padding.firstItem;
         UIView *secondView = (UIView *)padding.secondItem;
@@ -619,7 +621,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
         BOOL secondVisible = !secondView.hidden && !CGSizeEqualToSize(secondView.intrinsicContentSize, CGSizeZero);
         // Set if both views are visible or if there's a visible view on top that doesn't have padding
         // added relative to the current view yet
-        padding.constant = (firstVisible && (secondVisible || hasVisibleAncestors)) ? MBDefaultPadding : 0.f;
+        padding.constant = (firstVisible && (secondVisible || hasVisibleAncestors)) ? paddingValue : 0.f;
         hasVisibleAncestors |= secondVisible;
     }];
 }
@@ -658,6 +660,13 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 - (void)setMargin:(CGFloat)margin {
     if (margin != _margin) {
         _margin = margin;
+        [self setNeedsUpdateConstraints];
+    }
+}
+
+- (void)setPadding:(CGFloat)padding {
+    if (padding != _padding) {
+        _padding = padding;
         [self setNeedsUpdateConstraints];
     }
 }
