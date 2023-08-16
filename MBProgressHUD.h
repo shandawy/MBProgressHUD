@@ -6,7 +6,7 @@
 
 // This code is distributed under the terms and conditions of the MIT license.
 
-// Copyright © 2009-2020 Matej Bukovinski
+// Copyright © 2009-2016 Matej Bukovinski
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -239,6 +239,12 @@ NS_ASSUME_NONNULL_BEGIN
  * Defaults to 20.f
  */
 @property (assign, nonatomic) CGFloat margin UI_APPEARANCE_SELECTOR;
+
+/**
+ * The padding of space spacing between elements (labels, indicators or custom views).
+ * Defaults to 4.f
+ */
+@property (assign, nonatomic) CGFloat padding UI_APPEARANCE_SELECTOR;
 
 /**
  * The minimum size of the HUD bezel. Defaults to CGSizeZero (no minimum size).
