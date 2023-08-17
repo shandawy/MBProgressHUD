@@ -252,6 +252,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) CGSize minSize UI_APPEARANCE_SELECTOR;
 
 /**
+ * The max size of the HUD bezel. Defaults to CGSizeZero (no max size).
+ */
+@property (assign, nonatomic) CGSize maxSize UI_APPEARANCE_SELECTOR;
+
+/**
  * Force the HUD dimensions to be equal if possible.
  */
 @property (assign, nonatomic, getter = isSquare) BOOL square UI_APPEARANCE_SELECTOR;
