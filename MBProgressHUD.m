@@ -553,6 +553,14 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
         [self applyPriority:997.f toConstraints:minSizeConstraints];
         [bezelConstraints addObjectsFromArray:minSizeConstraints];
     }
+    
+    CGSize maxSize = self.maxSize;
+    if (!CGSizeEqualToSize(maxSize, CGSizeZero)) {
+        NSMutableArray *maxSizeConstraints = [NSMutableArray array];
+        [maxSizeConstraints addObject:[NSLayoutConstraint constraintWithItem:bezel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.f constant:maxSize.width]];
+        [maxSizeConstraints addObject:[NSLayoutConstraint constraintWithItem:bezel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.f constant:maxSize.height]];
+        [bezelConstraints addObjectsFromArray:maxSizeConstraints];
+    }
 
     // Square aspect ratio, if set
     if (self.square) {
@@ -674,6 +682,13 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 - (void)setMinSize:(CGSize)minSize {
     if (!CGSizeEqualToSize(minSize, _minSize)) {
         _minSize = minSize;
+        [self setNeedsUpdateConstraints];
+    }
+}
+
+- (void)setMaxSize:(CGSize)maxSize {
+    if (!CGSizeEqualToSize(maxSize, _maxSize)) {
+        _maxSize = maxSize;
         [self setNeedsUpdateConstraints];
     }
 }
